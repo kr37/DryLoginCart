@@ -1,0 +1,39 @@
+{
+  "name": "kr37/drylogincart",
+  "description": "Routines for front-end user registration and login, and cart storage, validation, and submittal",
+  "type": "craft-plugin",
+  "license": "mit",
+  "support": {
+    "email": "kelsangrinzin@gmail.com",
+    "issues": "https://github.com/kr37/drylogincart/issues?state=open",
+    "source": "https://github.com/kr37/drylogincart",
+    "docs": "https://github.com/kr37/drylogincart",
+    "rss": "https://github.com/kr37/drylogincart/releases.atom"
+  },
+  "require": {
+    "php": ">=8.2",
+    "craftcms/cms": "^5.5.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "kr37\\drylogincart\\": "src/"
+    }
+  },
+  "extra": {
+    "handle": "drylogincart",
+    "name": "DryLoginCart",
+    "developer": "kr37",
+    "documentationUrl": "https://github.com/kr37/drylogincart",
+    "class": "kr37\\drylogincart\\DryLoginCart"
+  },
+  "config": {
+    "sort-packages": true,
+    "platform": {
+      "php": "8.2"
+    },
+    "allow-plugins": {
+      "yiisoft/yii2-composer": true,
+      "craftcms/plugin-installer": true
+    }
+  }
+}
