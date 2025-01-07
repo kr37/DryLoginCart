@@ -6,6 +6,8 @@ use Craft;
 use craft\base\Model;
 use craft\base\Plugin;
 use kr37\drylogincart\models\Settings;
+use kr37\drylogincart\services\CartService;
+use kr37\drylogincart\services\CustomerService;
 
 /**
  * DryLoginCart plugin
@@ -15,18 +17,20 @@ use kr37\drylogincart\models\Settings;
  * @author kr37 <kelsangrinzin@gmail.com>
  * @copyright kr37
  * @license MIT
+ * @property-read CustomerService $customerService
+ * @property-read CartService $cartService
  */
 class DryLoginCart extends Plugin
 {
     public string $schemaVersion = '1.0.0';
     public bool $hasCpSettings = true;
 
+    const CUSTOMERS_TABLE = 'kmcwa_customers';
+
     public static function config(): array
     {
         return [
-            'components' => [
-                // Define component configs here...
-            ],
+            'components' => ['customerService' => CustomerService::class, 'cartService' => CartService::class],
         ];
     }
 
