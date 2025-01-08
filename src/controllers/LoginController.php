@@ -13,7 +13,8 @@ use kr37\drylogincart\services\CustomerService as Customer;
 class LoginController extends Controller
 {
     public $defaultAction = 'index';
-    protected array|int|bool $allowAnonymous = self::ALLOW_ANONYMOUS_NEVER;
+    //protected array|int|bool $allowAnonymous = self::ALLOW_ANONYMOUS_NEVER;
+    protected array|int|bool $allowAnonymous = self::ALLOW_ANONYMOUS_LIVE | self::ALLOW_ANONYMOUS_OFFLINE;
 
     /**
      * drylogincart/login action
@@ -29,6 +30,9 @@ class LoginController extends Controller
     }
 
     public function actionAuthenticate(): Response {
+
+        // Start PHP session, if not already started
+        if (session_status() !== PHP_SESSION_ACTIVE) session_start();
 
         // Now we check if the data from the login form was submitted, isset() will check if the data exists.
         if ( !isset($_POST['primary_email'], $_POST['password']) ) {
@@ -51,7 +55,7 @@ class LoginController extends Controller
             $_SESSION['id']       = $customer['id'];
             $_SESSION['theRest']  = $customer;
             //echo 'Welcome back, ' . htmlspecialchars($_SESSION['name'], ENT_QUOTES) . '!';
-            return $this->asJson($_SESSION);
+            return $this->goBack();
         } else {
             // Incorrect password
             return $this->asRaw('Incorrect primary_email and/or password!');

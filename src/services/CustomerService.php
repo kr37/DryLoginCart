@@ -27,4 +27,8 @@ class CustomerService extends Component
         return $customer;
     }
 
+    static function isLoggedIn() {
+        return isset($_SESSION['loggedin']);
+    }
+
 }

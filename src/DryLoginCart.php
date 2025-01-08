@@ -5,9 +5,13 @@ namespace kr37\drylogincart;
 use Craft;
 use craft\base\Model;
 use craft\base\Plugin;
+use craft\web\twig\variables\CraftVariable;
+use yii\base\Event;
+
 use kr37\drylogincart\models\Settings;
 use kr37\drylogincart\services\CartService;
 use kr37\drylogincart\services\CustomerService;
+use kr37\drylogincart\variables\DryLoginCartVariable;
 
 /**
  * DryLoginCart plugin
@@ -45,6 +49,17 @@ class DryLoginCart extends Plugin
         Craft::$app->onInit(function() {
             // ...
         });
+
+        // Register our variables
+        Event::on(
+            CraftVariable::class, 
+            CraftVariable::EVENT_INIT, 
+            function(Event $event) {
+                /** @var CraftVariable $variable */
+                $variable = $event->sender;
+                $variable->set('LoginCart', DryLoginCartVariable::class);
+             }
+        );
     }
 
     protected function createSettingsModel(): ?Model
